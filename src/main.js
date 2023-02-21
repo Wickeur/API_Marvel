@@ -5,6 +5,8 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 
 import './assets/main.css'
+  // Import Bootstrap and BootstrapVue CSS files (order is important)
+import 'bootstrap/dist/css/bootstrap.css'
 
 // J'importe mes composants
 import IndexComponent from "@/components/IndexComponent.vue";

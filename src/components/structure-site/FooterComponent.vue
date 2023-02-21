@@ -5,14 +5,19 @@ export default {
 </script>
 
 <template>
-  <div class="bloc">
-    Je suis le footer
-  </div>
+  <footer>
+    By Wickeur
+  </footer>
 </template>
 
 
 <style>
-.bloc{
-  display: block;
+footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  padding: 20px;
 }
 </style>
