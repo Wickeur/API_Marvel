@@ -5,12 +5,32 @@ import md5 from 'md5';
   // Ma clé public : bb4b312175d34c383916b21d0cd61b2f
   // Ma clé privée : 7add3909894cb9c00d59137600b6bb8001617be2
 const timestamp = Date.now();
+
 export default {
   name: 'HerosComponent',
   data() {
       return {
+        tailleCard: 100,
+        affichageDescription: false,
         dataMarvel: []
       }
+    },
+    methods: {
+        restriction(text){
+            if (this.affichageDescription == false) {
+                return text.slice(0, 70) + '...';
+            } else {
+                return text;
+            }
+        },
+        afficheDescription() {
+            this.affichageDescription = !this.affichageDescription;
+            if (this.affichageDescription == true) {
+                this.tailleCard = 220;
+            } else {
+                this.tailleCard = 100;
+            }
+        }
     },
     mounted() {
       // axios.get('https://jsonplaceholder.typicode.com/users')
@@ -54,8 +74,8 @@ export default {
             <!-- Si la description est vide -->
             <p class="card-text" v-if="item.description === ''">Il n'y a pas de description</p>
             <!-- Si la description n'est pas vide  -->
-            <p class="card-text" v-else>{{ item.description }}</p>
-            <a href="#" class="btn btn-primary">Infos</a>
+            <p class="card-text" :style="{ height: tailleCard + 'px' }" v-else>{{ restriction(item.description) }}</p>
+            <button class="read-more" @click="afficheDescription">Lire la suite</button>
           </div>
         </div>
       </div>
@@ -78,5 +98,17 @@ export default {
   h1{
     text-align: center;
   }
+
+  .card-text{
+    height: 100px;
+    overflow: hidden;
+  }
+
+  .read-more {
+     position: absolute; /* définit la position du bouton par rapport à la carte */
+     bottom: 0;
+     right: 0;
+     margin: 10px; /* ajoute un peu de marge autour du bouton */
+    }
 
 </style>
