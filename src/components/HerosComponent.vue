@@ -36,8 +36,8 @@ export default {
 }
 </script>
 <template>
-    <h3>Les héros Marvel</h3>
-    <div class="container">
+    <h1><b>Les héros Marvel</b></h1>
+    <div class="lesHeros">
       <!-- {{ dataMarvel }} -->
       <div class="heros" v-for="item in dataMarvel">        
         <div class="card" style="width: 18rem;">
@@ -63,7 +63,7 @@ export default {
 </template>
 
 <style>
-  .container{
+  .lesHeros{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 10px;
@@ -74,4 +74,9 @@ export default {
   .image{
     max-height: 250px;
   }
+
+  h1{
+    text-align: center;
+  }
+
 </style>

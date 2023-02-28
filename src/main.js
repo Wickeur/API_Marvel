@@ -9,11 +9,11 @@ import './assets/main.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
 // J'importe mes composants
-import IndexComponent from "@/components/IndexComponent.vue";
+import AcceuilComponent from "@/components/AcceuilComponent.vue";
 import HerosComponent from "@/components/HerosComponent.vue";
 
 const routes = [
-    {path: '/', name:'homepage', component: IndexComponent},
+    {path: '/', name:'homepage', component: AcceuilComponent},
     {path: '/heros', name:'heros', component: HerosComponent},
     // {path: '/contenu/:id/page/:page', name:'content_page', component: ContenuComponent, props: true},
 ];
