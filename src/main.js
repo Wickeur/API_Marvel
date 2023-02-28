@@ -10,13 +10,12 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 // J'importe mes composants
 import IndexComponent from "@/components/IndexComponent.vue";
-import ContenuComponent from "@/components/ContenuComponent.vue";
-import TpComponent from "@/components/TpComponent.vue";
+import HerosComponent from "@/components/HerosComponent.vue";
 
 const routes = [
     {path: '/', name:'homepage', component: IndexComponent},
-    {path: '/tp', name:'tp', component: TpComponent},
-    {path: '/contenu/:id/page/:page', name:'content_page', component: ContenuComponent, props: true},
+    {path: '/heros', name:'heros', component: HerosComponent},
+    // {path: '/contenu/:id/page/:page', name:'content_page', component: ContenuComponent, props: true},
 ];
 
 const router = createRouter({
