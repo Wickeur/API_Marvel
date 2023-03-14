@@ -12,7 +12,10 @@ export default {
       return {
         tailleCard: 100,
         affichageDescription: false,
-        dataMarvel: []
+        dataMarvel: [], 
+        nomRecherche: '',
+        personnages: [],
+        filtreActif: false
       }
     },
     methods: {
@@ -30,6 +33,35 @@ export default {
             } else {
                 this.tailleCard = 100;
             }
+        },
+        rechercher() {
+          if(this.nomRecherche.length > 0){
+            this.filtreActif = true;
+            axios.get('https://gateway.marvel.com:443/v1/public/characters',{
+              params: {
+                "apikey": "bb4b312175d34c383916b21d0cd61b2f",
+                "ts": 1,
+                "limit": 20,
+                "nameStartsWith": this.nomRecherche,
+                'orderBy': 'name',
+                "hash": md5( 1 + "7add3909894cb9c00d59137600b6bb8001617be2" + "bb4b312175d34c383916b21d0cd61b2f")
+              }
+            })
+              .then(response => {
+                this.personnages = response.data.data.results;
+                console.log(response.data);
+              })
+              .catch(error => {
+                console.log(error);
+              });
+          }
+          else{
+            this.filtreActif = false;
+          }
+        },
+        annulerRecherche() {
+          this.filtreActif = false;
+          this.nomRecherche = '';
         }
     },
     mounted() {
@@ -39,7 +71,6 @@ export default {
           "apikey": "bb4b312175d34c383916b21d0cd61b2f",
           "ts": 1,
           "limit": 20,
-          // "nameStartsWith": 'I',
           'orderBy': 'name',
           // md5(ts+privateKey+publicKey)
           "hash": md5( 1 + "7add3909894cb9c00d59137600b6bb8001617be2" + "bb4b312175d34c383916b21d0cd61b2f")
@@ -55,9 +86,44 @@ export default {
     }
 }
 </script>
+
 <template>
     <h1><b>Les héros Marvel</b></h1>
-    <div class="lesHeros">
+    <div class="rechercheHeros">
+      <h5>Rechercher votre héros</h5>
+      <div style="display: flex; flex-direction: row;">
+        <input style="flex: 5;" type="text" v-model="nomRecherche" placeholder="ex : Iron Man ...">
+        <button style="flex: 1; background-color: black; margin-left: 0;" @click="rechercher()">
+          <img style="height: 20px;" src="../../../public/icons8-loupe-64.png" alt="">
+        </button>
+      </div>
+      <button v-if="filtreActif === true" @click="annulerRecherche()">Annuler</button>
+    </div>
+
+    <div v-if="filtreActif === true" name="persoFiltre" class="lesHeros">
+      <div class="heros" v-for="item in personnages">        
+        <div class="card" style="width: 18rem;">
+        <!-- Si il y a une image -->
+          <div style="height: 250px;" v-if="item.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'">
+              <img class="card-img-top image" :src="item.thumbnail.path + '.' + item.thumbnail.extension" alt="image">
+          </div>
+          <!-- Si il n'y pas a pas d'image -->
+          <div style="height: 250px;" v-if="item.thumbnail.path === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'">
+            <img class="card-img-top image" src="https://via.placeholder.com/150" alt="image">
+          </div>
+          <div class="card-body" style="max-height: 180px;">
+            <h5 class="card-title">{{ item.name}}</h5>
+             <!-- Si la description est vide -->
+            <p class="card-text" v-if="item.description === ''">Il n'y a pas de description</p>
+            <!-- Si la description n'est pas vide  -->
+            <p class="card-text" :style="{ height: tailleCard + 'px' }" v-else>{{ restriction(item.description) }}</p>
+            <button class="read-more" @click="afficheDescription">Lire la suite</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="filtreActif === false" name="persoSansFiltre" class="lesHeros">
       <!-- {{ dataMarvel }} -->
       <div class="heros" v-for="item in dataMarvel">        
         <div class="card" style="width: 18rem;">
@@ -83,10 +149,55 @@ export default {
 </template>
 
 <style>
+  .rechercheHeros{
+    position: fixed;
+    left: 0;
+    top: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 200px;
+    padding: 0 5px 0 5px;
+  }
+
+  .rechercheHeros h5 {
+    background-color: red; 
+    color: black;
+    border-radius: 5px;
+    justify-content: center;
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+  }
+
+  .rechercheHeros input{
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    justify-content: center;
+    text-align: center;
+    width: 90%;
+    margin-left: 5%;
+  }
+
+  .rechercheHeros button{
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    justify-content: center;
+    text-align: center;
+    margin-left: 10%;
+  }
+
+  h1{
+    text-align: center;
+    padding: 2%;
+  }
   .lesHeros{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 10px;
+    grid-gap: 20px;
+    margin: 40px 0 20px 0;
   }
   .name{
     font-weight: bold;
@@ -109,6 +220,7 @@ export default {
      bottom: 0;
      right: 0;
      margin: 10px; /* ajoute un peu de marge autour du bouton */
+     width: fit-content;
     }
 
 </style>
