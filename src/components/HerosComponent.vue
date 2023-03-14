@@ -15,7 +15,10 @@ export default {
         dataMarvel: [], 
         nomRecherche: '',
         personnages: [],
-        filtreActif: false
+        filtreActif: false,
+        pageActuelle: 1,
+        itemsPerPage: 20,
+        totalItems: 0
       }
     },
     methods: {
@@ -62,29 +65,53 @@ export default {
         annulerRecherche() {
           this.filtreActif = false;
           this.nomRecherche = '';
+        },
+        paginationHeros() {
+          axios.get('https://gateway.marvel.com:443/v1/public/characters',{
+            params: {
+              "apikey": "bb4b312175d34c383916b21d0cd61b2f",
+              "ts": 1,
+              "limit": this.itemsPerPage,
+              "offset": (this.pageActuelle - 1) * this.itemsPerPage,
+              "orderBy": 'name',
+              "hash": md5( 1 + "7add3909894cb9c00d59137600b6bb8001617be2" + "bb4b312175d34c383916b21d0cd61b2f")
+            }
+          })
+          .then(response => {
+            this.dataMarvel = response.data.data.results;
+            //console.log(response.data);
+            this.totalItems = response.data.data.total;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+        },
+        setpageActuelle(numPage) {
+          this.pageActuelle = numPage;
+          this.paginationHeros();
+        },
+        pageAvant() {
+          if (this.pageActuelle > 1) {
+            this.pageActuelle--;
+            this.paginationHeros();
+          }
+        },
+        pageApres() {
+          if (this.pageActuelle < this.totalPages) {
+            this.pageActuelle++;
+            this.paginationHeros();
+          }
         }
-    },
-    mounted() {
-      // axios.get('https://jsonplaceholder.typicode.com/users')
-      axios.get('https://gateway.marvel.com:443/v1/public/characters',{
-        params: {
-          "apikey": "bb4b312175d34c383916b21d0cd61b2f",
-          "ts": 1,
-          "limit": 20,
-          'orderBy': 'name',
-          // md5(ts+privateKey+publicKey)
-          "hash": md5( 1 + "7add3909894cb9c00d59137600b6bb8001617be2" + "bb4b312175d34c383916b21d0cd61b2f")
-        }
-      })
-        .then(response => {
-          this.dataMarvel = response.data.data.results;
-          console.log(response.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+  },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.totalItems / this.itemsPerPage);
     }
-}
+  },
+  mounted() {
+    this.paginationHeros();
+  }
+};
 </script>
 
 <template>
@@ -99,6 +126,24 @@ export default {
       </div>
       <button v-if="filtreActif === true" @click="annulerRecherche()">Annuler</button>
     </div>
+
+    <nav style="width:90%; overflow-x: scroll;">
+      <ul class="pagination">
+        <li class="page-item" :class="{ disabled: pageActuelle === 1 }">
+          <a class="page-link" href="#" aria-label="Previous" @click.prevent="pageAvant">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item" v-for="numPage in totalPages" :key="numPage" :class="{ active: pageActuelle === numPage }">
+          <a class="page-link" href="#" @click.prevent="setpageActuelle(numPage)">{{ numPage }}</a>
+        </li>
+        <li class="page-item" :class="{ disabled: pageActuelle === totalPages }">
+          <a class="page-link" href="#" aria-label="Next" @click.prevent="pageApres">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
 
     <div v-if="filtreActif === true" name="persoFiltre" class="lesHeros">
       <div class="heros" v-for="item in personnages">        
