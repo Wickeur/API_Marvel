@@ -116,6 +116,8 @@ export default {
 
 <template>
     <h1><b>Les héros Marvel</b></h1>
+
+    <!-- Barre de recherche -->
     <div class="rechercheHeros">
       <h5>Rechercher votre héros</h5>
       <div style="display: flex; flex-direction: row;">
@@ -127,6 +129,7 @@ export default {
       <button v-if="filtreActif === true" @click="annulerRecherche()">Annuler</button>
     </div>
 
+    <!-- Pagination -->
     <nav style="width:90%; overflow-x: scroll;">
       <ul class="pagination">
         <li class="page-item" :class="{ disabled: pageActuelle === 1 }">
@@ -145,6 +148,7 @@ export default {
       </ul>
     </nav>
 
+    <!-- Affichage des personnages -->
     <div v-if="filtreActif === true" name="persoFiltre" class="lesHeros">
       <div class="heros" v-for="item in personnages">        
         <div class="card" style="width: 18rem;">
@@ -168,6 +172,7 @@ export default {
       </div>
     </div>
 
+    <!-- Affichage des personnages -->
     <div v-if="filtreActif === false" name="persoSansFiltre" class="lesHeros">
       <!-- {{ dataMarvel }} -->
       <div class="heros" v-for="item in dataMarvel">        

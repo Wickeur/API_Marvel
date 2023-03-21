@@ -28,6 +28,9 @@ export default {
       <li>
         <router-link to="/heros">Héros</router-link>
       </li>
+      <li>
+        <router-link to="/comics">Comics</router-link>
+      </li>
     </ul>
   </div>
 
