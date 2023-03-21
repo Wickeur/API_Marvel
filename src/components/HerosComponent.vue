@@ -118,7 +118,7 @@ export default {
     <h1><b>Les héros Marvel</b></h1>
 
     <!-- Barre de recherche -->
-    <div class="rechercheHeros">
+    <div class="barreRecherche">
       <h5>Rechercher votre héros</h5>
       <div style="display: flex; flex-direction: row;">
         <input style="flex: 5;" type="text" v-model="nomRecherche" placeholder="ex : Iron Man ...">
@@ -199,47 +199,7 @@ export default {
 </template>
 
 <style>
-  .rechercheHeros{
-    position: fixed;
-    left: 0;
-    top: 40%;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    width: 200px;
-    padding: 0 5px 0 5px;
-  }
-
-  .rechercheHeros h5 {
-    background-color: red; 
-    color: black;
-    border-radius: 5px;
-    justify-content: center;
-    text-align: center;
-    width: 80%;
-    margin-left: 10%;
-  }
-
-  .rechercheHeros input{
-    background-color: white;
-    color: black;
-    border-radius: 5px;
-    justify-content: center;
-    text-align: center;
-    width: 90%;
-    margin-left: 5%;
-  }
-
-  .rechercheHeros button{
-    background-color: white;
-    color: black;
-    border-radius: 5px;
-    justify-content: center;
-    text-align: center;
-    margin-left: 10%;
-  }
-
-  h1{
+    h1{
     text-align: center;
     padding: 2%;
   }

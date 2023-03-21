@@ -10,27 +10,42 @@ export default {
   name: 'ComicsComponent',
   data() {
       return {
-        dataComicsMarvel: []
+        dataComicsMarvel: [],
+        nomRecherche: '',
+        personnages: [],
+        filtreActif: false,
       }
     },
-    mounted() {
-      axios.get('https://gateway.marvel.com:443/v1/public/comics',{
-        params: {
-            "apikey": "bb4b312175d34c383916b21d0cd61b2f",
-            "ts": 1,
-            "limit": 20,
-            'orderBy': 'title',
-          // md5(ts+privateKey+publicKey)
-          "hash": md5( 1 + "7add3909894cb9c00d59137600b6bb8001617be2" + "bb4b312175d34c383916b21d0cd61b2f")
-        }
-      })
-        .then(response => {
-          this.dataComicsMarvel = response.data.data.results;
-          console.log(response.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    methods:{
+        rechercher() {
+              if(this.nomRecherche.length > 0){
+                this.filtreActif = true;
+                axios.get('https://gateway.marvel.com:443/v1/public/comics',{
+                  params: {
+                    "apikey": "bb4b312175d34c383916b21d0cd61b2f",
+                    "ts": 1,
+                    "limit": 20,
+                    "titleStartsWith": this.nomRecherche,
+                    'orderBy': 'title',
+                    "hash": md5( 1 + "7add3909894cb9c00d59137600b6bb8001617be2" + "bb4b312175d34c383916b21d0cd61b2f")
+                  }
+                })
+                  .then(response => {
+                    this.dataComicsMarvel = response.data.data.results;
+                    console.log(response.data);
+                  })
+                  .catch(error => {
+                    console.log(error);
+                  });
+              }
+              else{
+                this.filtreActif = false;
+              }
+            },
+            annulerRecherche() {
+              this.filtreActif = false;
+              this.nomRecherche = '';
+            }
     }
 }
 </script>
@@ -48,7 +63,10 @@ export default {
                     <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">{{ comics.title }}</h5>
-                        <p class="card-text"><small class="text-muted">Nombre de page : {{ comics.pageCount }}</small></p>
+                        <p class="card-text"><small class="text-muted">
+                            Nombre de page : {{ comics.pageCount }} <br>
+                        <!-- Prix : {{ comics.prices }} -->
+                    </small></p>
                         <!-- <div v-for="prix in comics">
                             <p class="card-text"><small class="text-muted">Prix : {{ prix.price }}</small></p>
                         </div> -->
@@ -58,6 +76,18 @@ export default {
                 </div>
             </div>
         </div>    
+    </div>
+
+    <!-- Barre de recherche -->
+    <div class="barreRecherche">
+      <h5>Rechercher un comics</h5>
+      <div style="display: flex; flex-direction: row;">
+        <input style="flex: 5;" type="text" v-model="nomRecherche" placeholder="ex : Avengers ...">
+        <button style="flex: 1; background-color: black; margin-left: 0;" @click="rechercher()">
+          <img style="height: 20px;" src="../../../public/icons8-loupe-64.png" alt="">
+        </button>
+      </div>
+      <button v-if="filtreActif === true" @click="annulerRecherche()">Annuler</button>
     </div>
 </template>
 
