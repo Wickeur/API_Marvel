@@ -12,7 +12,7 @@ export default {
         <router-link to="/">Accueil</router-link>
       </li>
       <li>
-        <router-link to="/heros">Héros</router-link>
+        <router-link to="/Personnages">Personnages</router-link>
       </li>
       <li>
         <router-link to="/comics">Comics</router-link>

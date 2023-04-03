@@ -7,7 +7,7 @@ import md5 from 'md5';
 const timestamp = Date.now();
 
 export default {
-  name: 'HerosComponent',
+  name: 'PersonnagesComponent',
   data() {
       return {
         tailleCard: 100,
@@ -77,7 +77,7 @@ export default {
         },
 
         // Fonction pour la pagination
-        paginationHeros() {
+        paginationPersonnages() {
           axios.get('https://gateway.marvel.com:443/v1/public/characters',{
             params: {
               "apikey": "bb4b312175d34c383916b21d0cd61b2f",
@@ -102,20 +102,20 @@ export default {
         // Fonction pour changer de page
         majPageActuelle(numPage) {
           this.pageActuelle = numPage;
-          this.paginationHeros();
+          this.paginationPersonnages();
         },
         // Fonction pour aller à la page précédente
         pageAvant() {
           if (this.pageActuelle > 1) {
             this.pageActuelle--;
-            this.paginationHeros();
+            this.paginationPersonnages();
           }
         },
         // Fonction pour aller à la page suivante
         pageApres() {
           if (this.pageActuelle < this.totalPages) {
             this.pageActuelle++;
-            this.paginationHeros();
+            this.paginationPersonnages();
           }
         }
   },
@@ -126,19 +126,20 @@ export default {
       return Math.ceil(this.totalItems / this.itemsParPage);
     }
   },
-  // Appel de la fonction paginationHeros() au chargement de la page
+  // Appel de la fonction paginationPersonnages() au chargement de la page
   mounted() {
-    this.paginationHeros();
+    this.paginationPersonnages();
   }
 };
 </script>
 
 <template>
-    <h1><b>Les héros Marvel</b></h1>
+    <h1><b>Les Personnages de l'univers Marvel</b></h1>
 
     <!-- Barre de recherche -->
     <div class="barreRecherche">
-      <h5>Rechercher votre héros</h5>
+      <h5>Rechercher votre personnage</h5>
+
       <div style="display: flex; flex-direction: row;">
         <input style="flex: 5;" type="text" v-model="nomRecherche" placeholder="ex : Iron Man ...">
         <button style="flex: 1; background-color: black; margin-left: 0;" @click="rechercher()">
@@ -168,8 +169,8 @@ export default {
     </nav>
 
     <!-- Filtre des personnages -->
-    <div v-if="filtreActif === true" name="persoFiltre" class="lesHeros">
-      <div class="heros" v-for="item in personnages">        
+    <div v-if="filtreActif === true" name="persoFiltre" class="lesPersonnages">
+      <div class="Personnages" v-for="item in personnages">        
         <div class="card" style="width: 18rem;">
         <!-- Si il y a une image -->
           <div style="height: 250px;" v-if="item.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'">
@@ -192,9 +193,9 @@ export default {
     </div>
 
     <!-- Affichage des personnages -->
-    <div v-if="filtreActif === false" name="persoSansFiltre" class="lesHeros">
+    <div v-if="filtreActif === false" name="persoSansFiltre" class="lesPersonnages">
       <!-- {{ dataMarvel }} -->
-      <div class="heros" v-for="item in dataMarvel">        
+      <div class="Personnages" v-for="item in dataMarvel">        
         <div class="card" style="width: 18rem;">
           <!-- Si il y a une image -->
           <div style="height: 250px;" v-if="item.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'">
@@ -222,7 +223,7 @@ export default {
     text-align: center;
     padding: 2%;
   }
-  .lesHeros{
+  .lesPersonnages{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 20px;

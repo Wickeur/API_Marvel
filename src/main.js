@@ -10,13 +10,13 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 // J'importe mes composants
 import AcceuilComponent from "@/components/AcceuilComponent.vue";
-import HerosComponent from "@/components/HerosComponent.vue";
+import PersonnagesComponent from "@/components/PersonnagesComponent.vue";
 import ComicsComponent from "@/components/ComicsComponent.vue";
 
 const routes = [
     {path: '/', name:'homepage', component: AcceuilComponent},
-    {path: '/heros', name:'heros', component: HerosComponent},
-    // {path: '/heros/:id', name:'heros_id', component: HerosComponent, props: true},
+    {path: '/Personnages', name:'Personnages', component: PersonnagesComponent},
+    // {path: '/Personnages/:id', name:'Personnages_id', component: PersonnagesComponent, props: true},
     {path: '/comics', name:'comics', component: ComicsComponent},
 ];
 
