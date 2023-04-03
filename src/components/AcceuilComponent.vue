@@ -5,7 +5,9 @@
   </script>
 
 <template>
-  <div class="contenuPage"></div>
+  
+    <img class="imagefond" src="/marvel_fondRouge.png" alt="fond">
+
 </template>
 
 <style>

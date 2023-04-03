@@ -5,22 +5,8 @@ export default {
 </script>
 
 <template>
-  <!-- <nav class="navbar navbar-expand-lg navbar-dark navigation">
-    <div style="color: white;" class="collapse navbar-collapse" id="navbarTogglerDemo03">
-      <img style="height: 50px;" src="../../../public/Marvel_logo.jpg" alt="logo">
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item active">
-          <router-link class="nav-link" to="/">Accueil</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/heros">Héros</router-link>
-        </li>
-      </ul>
-    </div>
-  </nav> -->
-  
   <div class="navigation">
-    <img style="height: 50px;" src="../../../public/Marvel_logo.jpg" alt="logo">
+    <img style="height: 50px;" src="/Marvel_logo.jpg" alt="logo">
     <ul>
       <li>
         <router-link to="/">Accueil</router-link>

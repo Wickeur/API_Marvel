@@ -17,11 +17,12 @@ export default {
         personnages: [],
         filtreActif: false,
         pageActuelle: 1,
-        itemsPerPage: 20,
+        itemsParPage: 20,
         totalItems: 0
       }
     },
     methods: {
+      // Fonction pour limiter la description à 70 caractères
         restriction(text){
             if (this.affichageDescription == false) {
                 return text.slice(0, 70) + '...';
@@ -29,6 +30,7 @@ export default {
                 return text;
             }
         },
+        // Fonction pour afficher la description complète
         afficheDescription() {
             this.affichageDescription = !this.affichageDescription;
             if (this.affichageDescription == true) {
@@ -37,65 +39,79 @@ export default {
                 this.tailleCard = 100;
             }
         },
+        // Fonction pour rechercher un personnage
         rechercher() {
           if(this.nomRecherche.length > 0){
             this.filtreActif = true;
+            // Requête pour récupérer les personnages
             axios.get('https://gateway.marvel.com:443/v1/public/characters',{
               params: {
                 "apikey": "bb4b312175d34c383916b21d0cd61b2f",
                 "ts": 1,
-                "limit": 20,
+                "limit": 30,
                 "nameStartsWith": this.nomRecherche,
                 'orderBy': 'name',
                 "hash": md5( 1 + "7add3909894cb9c00d59137600b6bb8001617be2" + "bb4b312175d34c383916b21d0cd61b2f")
               }
             })
               .then(response => {
+                // On stocke les personnages dans un tableau
                 this.personnages = response.data.data.results;
                 console.log(response.data);
               })
+              // En cas d'erreur
               .catch(error => {
                 console.log(error);
               });
           }
           else{
+            // Si la recherche est vide, on annule la recherche
             this.filtreActif = false;
           }
         },
+
+        // Fonction pour annuler la recherche
         annulerRecherche() {
           this.filtreActif = false;
           this.nomRecherche = '';
         },
+
+        // Fonction pour la pagination
         paginationHeros() {
           axios.get('https://gateway.marvel.com:443/v1/public/characters',{
             params: {
               "apikey": "bb4b312175d34c383916b21d0cd61b2f",
               "ts": 1,
-              "limit": this.itemsPerPage,
-              "offset": (this.pageActuelle - 1) * this.itemsPerPage,
+              "limit": this.itemsParPage,
+              "offset": (this.pageActuelle - 1) * this.itemsParPage,
               "orderBy": 'name',
               "hash": md5( 1 + "7add3909894cb9c00d59137600b6bb8001617be2" + "bb4b312175d34c383916b21d0cd61b2f")
             }
           })
+          // Résultat de la requête
           .then(response => {
             this.dataMarvel = response.data.data.results;
             //console.log(response.data);
             this.totalItems = response.data.data.total;
           })
+          // En cas d'erreur
           .catch(error => {
             console.log(error);
           });
         },
-        setpageActuelle(numPage) {
+        // Fonction pour changer de page
+        majPageActuelle(numPage) {
           this.pageActuelle = numPage;
           this.paginationHeros();
         },
+        // Fonction pour aller à la page précédente
         pageAvant() {
           if (this.pageActuelle > 1) {
             this.pageActuelle--;
             this.paginationHeros();
           }
         },
+        // Fonction pour aller à la page suivante
         pageApres() {
           if (this.pageActuelle < this.totalPages) {
             this.pageActuelle++;
@@ -103,11 +119,14 @@ export default {
           }
         }
   },
+  // Calcul du nombre de pages
   computed: {
+    // Fonction pour calculer le nombre de pages
     totalPages() {
-      return Math.ceil(this.totalItems / this.itemsPerPage);
+      return Math.ceil(this.totalItems / this.itemsParPage);
     }
   },
+  // Appel de la fonction paginationHeros() au chargement de la page
   mounted() {
     this.paginationHeros();
   }
@@ -123,14 +142,14 @@ export default {
       <div style="display: flex; flex-direction: row;">
         <input style="flex: 5;" type="text" v-model="nomRecherche" placeholder="ex : Iron Man ...">
         <button style="flex: 1; background-color: black; margin-left: 0;" @click="rechercher()">
-          <img style="height: 20px;" src="../../../public/icons8-loupe-64.png" alt="">
+          <img style="height: 20px;" src="/icons8-loupe-64.png" alt="">
         </button>
       </div>
       <button v-if="filtreActif === true" @click="annulerRecherche()">Annuler</button>
     </div>
 
     <!-- Pagination -->
-    <nav style="width:90%; overflow-x: scroll;">
+    <nav v-if="filtreActif === false" style="width:90%; overflow-x: scroll;">
       <ul class="pagination">
         <li class="page-item" :class="{ disabled: pageActuelle === 1 }">
           <a class="page-link" href="#" aria-label="Previous" @click.prevent="pageAvant">
@@ -138,7 +157,7 @@ export default {
           </a>
         </li>
         <li class="page-item" v-for="numPage in totalPages" :key="numPage" :class="{ active: pageActuelle === numPage }">
-          <a class="page-link" href="#" @click.prevent="setpageActuelle(numPage)">{{ numPage }}</a>
+          <a class="page-link" href="#" @click.prevent="majPageActuelle(numPage)">{{ numPage }}</a>
         </li>
         <li class="page-item" :class="{ disabled: pageActuelle === totalPages }">
           <a class="page-link" href="#" aria-label="Next" @click.prevent="pageApres">
@@ -148,7 +167,7 @@ export default {
       </ul>
     </nav>
 
-    <!-- Affichage des personnages -->
+    <!-- Filtre des personnages -->
     <div v-if="filtreActif === true" name="persoFiltre" class="lesHeros">
       <div class="heros" v-for="item in personnages">        
         <div class="card" style="width: 18rem;">

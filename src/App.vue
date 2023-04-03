@@ -4,8 +4,6 @@
 
   export default {
     components: { HeaderComponent, FooterComponent },
-    
-    
   }
 </script>
 
@@ -13,7 +11,6 @@
   <HeaderComponent></HeaderComponent>
 
   <div class="contenuPage">
-    <img class="imagefond" src="../../../public/marvel_fondRouge.png" alt="fond">
     <router-view></router-view>
   </div>
 
