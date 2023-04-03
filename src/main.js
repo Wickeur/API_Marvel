@@ -3,6 +3,7 @@ import App from './App.vue'
 import {createRouter, createWebHistory} from 'vue-router'
 import axios from "axios";
 import VueAxios from "vue-axios";
+import InfoPersonnage from "./components/InfoPersonnage.vue";
 
 import './assets/main.css'
   // Import Bootstrap and BootstrapVue CSS files (order is important)
@@ -14,10 +15,25 @@ import PersonnagesComponent from "@/components/PersonnagesComponent.vue";
 import ComicsComponent from "@/components/ComicsComponent.vue";
 
 const routes = [
-    {path: '/', name:'homepage', component: AcceuilComponent},
-    {path: '/Personnages', name:'Personnages', component: PersonnagesComponent},
+    { 
+      path: '/', 
+      name:'homepage', 
+      component: AcceuilComponent},
+    {
+      path: '/Personnages', 
+      name:'Personnages', 
+      component: PersonnagesComponent},
     // {path: '/Personnages/:id', name:'Personnages_id', component: PersonnagesComponent, props: true},
-    {path: '/comics', name:'comics', component: ComicsComponent},
+    {
+      path: '/comics', 
+      name:'comics', component: 
+      ComicsComponent},
+    {
+      path: '/personnage/:id',
+      name: 'InfoPersonnage',
+      component: InfoPersonnage,
+      props: true
+    }
 ];
 
 const router = createRouter({

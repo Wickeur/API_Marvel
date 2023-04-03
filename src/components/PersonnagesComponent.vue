@@ -117,7 +117,10 @@ export default {
             this.pageActuelle++;
             this.paginationPersonnages();
           }
-        }
+        },
+        afficherInfoPerso(id) {
+          this.$router.push({ name: 'InfoPersonnage', params: { id: id } });
+         }
   },
   // Calcul du nombre de pages
   computed: {
@@ -195,7 +198,7 @@ export default {
     <!-- Affichage des personnages -->
     <div v-if="filtreActif === false" name="persoSansFiltre" class="lesPersonnages">
       <!-- {{ dataMarvel }} -->
-      <div class="Personnages" v-for="item in dataMarvel">        
+      <div class="Personnages" v-for="item in dataMarvel" :key="item.id">        
         <div class="card" style="width: 18rem;">
           <!-- Si il y a une image -->
           <div style="height: 250px;" v-if="item.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'">
@@ -212,6 +215,10 @@ export default {
             <!-- Si la description n'est pas vide  -->
             <p class="card-text" :style="{ height: tailleCard + 'px' }" v-else>{{ restriction(item.description) }}</p>
             <button class="read-more" @click="afficheDescription">Lire la suite</button>
+
+            <router-link :to="{ name: 'InfoPersonnage', params: { id: item.id } }">
+              <div>Voir détails</div>
+            </router-link>
           </div>
         </div>
       </div>
