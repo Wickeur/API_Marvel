@@ -14,7 +14,7 @@
     <router-view></router-view>
   </div>
 
-  <!-- <FooterComponent></FooterComponent> -->
+  <FooterComponent></FooterComponent>
 </template>
 
 <style>

@@ -14,9 +14,8 @@ export default {
 <style>
 footer{
   position: fixed;
+  left: 0px;
   bottom: 0;
-  width: 100%;
-  background-color: #000;
   color: #fff;
   padding: 20px;
 }
