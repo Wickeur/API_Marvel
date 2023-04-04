@@ -109,7 +109,7 @@ export default {
       totalPages() {
         return Math.ceil(this.totalItems / this.itemsParPage);
       },
-      comicsToShow() {
+      comicsVisible() {
         return this.filtreActif ? this.comicsFiltre : this.dataComicsMarvel;
       }
     },
@@ -147,7 +147,7 @@ export default {
     <!-- {{ dataComicsMarvel }} -->
    
       <div class="listeComics">
-          <div v-for="comics in comicsToShow"> 
+          <div v-for="comics in comicsVisible"> 
               <div class="card mb-3" style="max-width: 540px; max-height: 280px;">
                   <div class="row g-0">
                       <div class="col-md-4">

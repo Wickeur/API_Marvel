@@ -25,7 +25,7 @@ export default {
       // Fonction pour limiter la description à 70 caractères
         restriction(text){
             if (this.affichageDescription == false) {
-                return text.slice(0, 70) + '...';
+                return text.slice(0, 120) + '...';
             } else {
                 return text;
             }
@@ -127,7 +127,10 @@ export default {
     // Fonction pour calculer le nombre de pages
     totalPages() {
       return Math.ceil(this.totalItems / this.itemsParPage);
-    }
+    },
+    persoVisible() {
+        return this.filtreActif ? this.personnages : this.dataMarvel;
+      }
   },
   // Appel de la fonction paginationPersonnages() au chargement de la page
   mounted() {
@@ -171,30 +174,31 @@ export default {
       </ul>
     </nav>
 
-    <!-- Filtre des personnages -->
-    <div v-if="filtreActif === true" name="persoFiltre" class="lesPersonnages">
-      <div class="Personnages" v-for="item in personnages">        
+    <!-- Affichage des personnages -->
+    <div class="lesPersonnages">
+      <div v-for="item in persoVisible" :key="item.id" class="Personnages" >
         <div class="card" style="width: 18rem;">
-
-        <!-- Si il y a une image -->
-          <div style="height: 250px;" v-if="item.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'">
-              <img class="card-img-top image" :src="item.thumbnail.path + '.' + item.thumbnail.extension" alt="image">
+          <!-- Affichage de l'image -->
+          <div>
+            <img class="card-img-top image"
+                :src="item.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
+                ? item.thumbnail.path + '.' + item.thumbnail.extension
+                : 'https://via.placeholder.com/150'"
+                alt="image">
           </div>
 
-          <!-- Si il n'y pas a pas d'image -->
-          <div style="height: 250px;" v-if="item.thumbnail.path === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'">
-            <img class="card-img-top image" src="https://via.placeholder.com/150" alt="image">
-          </div>
+          <div class="card-body">
+            <!-- Affichage du titre -->
+            <h5 class="card-title">{{ item.name }}</h5>
 
-          <div class="card-body" style="max-height: 180px;">
-
-            <h5 class="card-title">{{ item.name}}</h5>
-
-             <!-- Si la description est vide -->
+            <!-- Si la description est vide -->
             <p class="card-text" v-if="item.description === ''">There is no description</p>
 
             <!-- Si la description n'est pas vide  -->
             <p class="card-text" :style="{ height: tailleCard + 'px' }" v-else>{{ restriction(item.description) }}</p>
+            <button class="read-more" @click="afficheDescription">Read more</button>
+
+            <!-- Affichage du bouton pour voir plus -->
             <button class="read-more" @click="afficheDescription">Read more</button>
 
             <!-- Redirection vers info perso -->
@@ -206,42 +210,6 @@ export default {
       </div>
     </div>
 
-    <!-- Affichage des personnages -->
-    <div v-if="filtreActif === false" name="persoSansFiltre" class="lesPersonnages">
-      <!-- {{ dataMarvel }} -->
-      <div class="Personnages" v-for="item in dataMarvel" :key="item.id">    
-
-        <div class="card" style="width: 18rem;">
-
-          <!-- Si il y a une image -->
-          <div style="height: 250px;" v-if="item.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'">
-              <img class="card-img-top image" :src="item.thumbnail.path + '.' + item.thumbnail.extension" alt="image">
-          </div>
-
-          <!-- Si il n'y pas a pas d'image -->
-          <div style="height: 250px;" v-if="item.thumbnail.path === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'">
-            <img class="card-img-top image" src="https://via.placeholder.com/150" alt="image">
-          </div>
-
-          <div class="card-body">
-
-            <h5 class="card-title">{{ item.name}}</h5>
-
-            <!-- Si la description est vide -->
-            <p class="card-text" v-if="item.description === ''">There is no description</p>
-            <!-- Si la description n'est pas vide  -->
-            <p class="card-text" :style="{ height: tailleCard + 'px' }" v-else>{{ restriction(item.description) }}</p>
-            <button class="read-more" @click="afficheDescription">Lire la suite</button>
-
-            <!-- Redirection vers info perso -->
-            <router-link :to="{ name: 'InfoPersonnage', params: { id: item.id } }">
-              <div>See details</div>
-            </router-link>
-
-          </div>
-        </div>
-      </div>
-    </div>
 </template>
 
 <style>
