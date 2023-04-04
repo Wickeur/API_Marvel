@@ -46,32 +46,32 @@
       <h1>{{ comic.title }}</h1>
   
       <div class="image-comic">
-        <img :src="comic.thumbnail.path + '.' + comic.thumbnail.extension" alt="Image de couverture du comic">
+        <img :src="comic.thumbnail.path + '.' + comic.thumbnail.extension" alt="Comic cover image">
       </div>
   
       <div v-if="comic.description">
         <p>{{ comic.description }}</p>
       </div>
       <div v-else>
-        <p>Pas de description disponible</p>
+        <p>No description available</p>
       </div>
   
       <div class="creators">
-        <h2>Créateurs</h2>
+        <h2>Creators</h2>
         <ul>
           <li v-for="creator in comic.creators.items" :key="creator.name">{{ creator.name }} - {{ creator.role }}</li>
         </ul>
       </div>
   
       <div class="characters">
-        <h2>Personnages</h2>
+        <h2>Characters</h2>
         <ul>
           <li v-for="character in comic.characters.items" :key="character.name">{{ character.name }}</li>
         </ul>
       </div>
   
       <div class="series">
-        <h2>Série</h2>
+        <h2>Series</h2>
         <p>{{ comic.series.name }}</p>
       </div>
     </div>

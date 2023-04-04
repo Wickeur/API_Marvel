@@ -9,10 +9,10 @@ export default {
     <img style="height: 50px;" src="/Marvel_logo.jpg" alt="logo">
     <ul>
       <li>
-        <router-link to="/">Accueil</router-link>
+        <router-link to="/">Home</router-link>
       </li>
       <li>
-        <router-link to="/Personnages">Personnages</router-link>
+        <router-link to="/Personnages">Characters</router-link>
       </li>
       <li>
         <router-link to="/comics">Comics</router-link>

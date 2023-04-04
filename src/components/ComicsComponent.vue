@@ -155,8 +155,8 @@ export default {
                           <h5 class="card-title">{{ comics.title }}</h5>
                           <p class="card-text">
                             <small class="text-muted">
-                              Nombre de page : {{ comics.pageCount }} <br>
-                              Prix : {{ comics.prices[0].price }}
+                              Number of pages : {{ comics.pageCount }} <br>
+                              Price : {{ comics.prices[0].price }}
                             </small>
                           </p>
                           <p class="card-text">{{ comics.description }}</p>
@@ -181,8 +181,8 @@ export default {
                           <h5 class="card-title">{{ comics.title }}</h5>
                           <p class="card-text">
                             <small class="text-muted">
-                              Nombre de page : {{ comics.pageCount }} <br>
-                              Prix : {{ comics.prices[0].price }}
+                              Number of pages : {{ comics.pageCount }} <br>
+                              Price : {{ comics.prices[0].price }}
                             </small></p>
                           <p class="card-text">{{ comics.description }}</p>
                       </div>
