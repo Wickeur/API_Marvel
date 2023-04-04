@@ -4,6 +4,7 @@ import {createRouter, createWebHistory} from 'vue-router'
 import axios from "axios";
 import VueAxios from "vue-axios";
 import InfoPersonnage from "./components/InfoPersonnage.vue";
+import ComicDetails from "./components/ComicsDetails.vue";
 
 import './assets/main.css'
   // Import Bootstrap and BootstrapVue CSS files (order is important)
@@ -18,20 +19,29 @@ const routes = [
     { 
       path: '/', 
       name:'homepage', 
-      component: AcceuilComponent},
+      component: AcceuilComponent
+    },
     {
       path: '/Personnages', 
       name:'Personnages', 
-      component: PersonnagesComponent},
-    // {path: '/Personnages/:id', name:'Personnages_id', component: PersonnagesComponent, props: true},
+      component: PersonnagesComponent
+    },
     {
       path: '/comics', 
       name:'comics', component: 
-      ComicsComponent},
+      ComicsComponent
+    },
     {
       path: '/personnage/:id',
       name: 'InfoPersonnage',
       component: InfoPersonnage,
+      props: true
+    },
+    // pas utilisé
+    {
+      path: '/comics/:id',
+      name: 'ComicsDetails',
+      component: ComicDetails,
       props: true
     }
 ];
