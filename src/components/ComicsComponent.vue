@@ -108,6 +108,9 @@ export default {
       // Fonction pour calculer le nombre de pages
       totalPages() {
         return Math.ceil(this.totalItems / this.itemsParPage);
+      },
+      comicsToShow() {
+        return this.filtreActif ? this.comicsFiltre : this.dataComicsMarvel;
       }
     },
 
@@ -142,9 +145,9 @@ export default {
     </nav>
     
     <!-- {{ dataComicsMarvel }} -->
-    <div v-if="filtreActif === true">
+   
       <div class="listeComics">
-          <div v-for="comics in comicsFiltre"> 
+          <div v-for="comics in comicsToShow"> 
               <div class="card mb-3" style="max-width: 540px; max-height: 280px;">
                   <div class="row g-0">
                       <div class="col-md-4">
@@ -153,45 +156,19 @@ export default {
                       <div class="col-md-8">
                       <div class="card-body">
                           <h5 class="card-title">{{ comics.title }}</h5>
-                          <p class="card-text">
-                            <small class="text-muted">
-                              Number of pages : {{ comics.pageCount }} <br>
-                              Price : {{ comics.prices[0].price }}
-                            </small>
-                          </p>
-                          <p class="card-text">{{ comics.description }}</p>
+                          <small class="text-muted">
+                            Number of pages : {{ comics.pageCount }} <br>
+                            Price : {{ comics.prices[0].price }}
+                          </small>
+                          <!-- v-html permet d'afficher les ' de l'API -->
+                          <p v-if="comics.description" class="card-text" v-html="comics.description"></p> 
+                          <p v-if="comics.description === ''" class="card-text">There is no description</p>
                       </div>
                       </div>
                   </div>
               </div>
           </div>    
       </div>
-    </div>
-
-    <div v-if="filtreActif === false">
-      <div class="listeComics">
-          <div v-for="comics in dataComicsMarvel"> 
-              <div class="card mb-3" style="max-width: 540px; max-height: 280px;">
-                  <div class="row g-0">
-                      <div class="col-md-4">
-                      <img class="img-fluid rounded-start" :src="comics.thumbnail.path + '.' + comics.thumbnail.extension" alt="image">
-                      </div>
-                      <div class="col-md-8">
-                      <div class="card-body">
-                          <h5 class="card-title">{{ comics.title }}</h5>
-                          <p class="card-text">
-                            <small class="text-muted">
-                              Number of pages : {{ comics.pageCount }} <br>
-                              Price : {{ comics.prices[0].price }}
-                            </small></p>
-                          <p class="card-text">{{ comics.description }}</p>
-                      </div>
-                      </div>
-                  </div>
-              </div>
-          </div>    
-      </div>
-    </div>
 
     <!-- Barre de recherche -->
     <div class="barreRecherche">
@@ -213,5 +190,8 @@ export default {
     grid-gap: 20px;
     padding-top: 10px;
   }
-
+  .card-text{
+    padding-top: 5px;
+    height: 100px;
+  }
 </style>

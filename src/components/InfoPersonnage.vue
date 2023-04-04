@@ -52,7 +52,7 @@ export default {
     <h1>{{ perso.name }}</h1>
 
     <div class="imagePerso">
-      <!-- <img :src="perso.thumbnail.path + '.' + perso.thumbnail.extension" alt="image"> -->
+      <img :src="perso.thumbnail.path + '.' + perso.thumbnail.extension" alt="image">
     </div>
   
     <div v-if="perso.description">
