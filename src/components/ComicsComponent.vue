@@ -29,7 +29,7 @@ export default {
             params: {
               "apikey": "bb4b312175d34c383916b21d0cd61b2f",
               "ts": 1,
-              "limit": 20,
+              "limit": 100,
               "titleStartsWith": this.nomRecherche,
               'orderBy': 'title',
               "hash": md5( 1 + "7add3909894cb9c00d59137600b6bb8001617be2" + "bb4b312175d34c383916b21d0cd61b2f")
@@ -123,7 +123,8 @@ export default {
 </script>
 
 <template>
-    <h1><b>Les Comics Marvel</b></h1>
+  <div class="contenuPage">
+    <h1><b>Marvel Comics</b></h1>
 
     <!-- Pagination -->
     <nav v-if="filtreActif === false" style="width:90%; overflow-x: scroll;">
@@ -181,6 +182,7 @@ export default {
       </div>
       <button v-if="filtreActif === true" @click="annulerRecherche()">Annuler</button>
     </div>
+  </div>
 </template>
 
 <style>

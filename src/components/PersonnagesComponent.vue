@@ -48,7 +48,7 @@ export default {
               params: {
                 "apikey": "bb4b312175d34c383916b21d0cd61b2f",
                 "ts": 1,
-                "limit": 30,
+                "limit": 100,
                 "nameStartsWith": this.nomRecherche,
                 'orderBy': 'name',
                 "hash": md5( 1 + "7add3909894cb9c00d59137600b6bb8001617be2" + "bb4b312175d34c383916b21d0cd61b2f")
@@ -140,6 +140,7 @@ export default {
 </script>
 
 <template>
+  <div class="contenuPage">
     <h1><b>Characters from the Marvel Universe</b></h1>
 
     <!-- Barre de recherche -->
@@ -187,7 +188,7 @@ export default {
                 alt="image">
           </div>
 
-          <div class="card-body">
+          <div class="card-body" :key="item.id">
             <!-- Affichage du titre -->
             <h5 class="card-title">{{ item.name }}</h5>
 
@@ -196,7 +197,6 @@ export default {
 
             <!-- Si la description n'est pas vide  -->
             <p class="card-text" :style="{ height: tailleCard + 'px' }" v-else>{{ restriction(item.description) }}</p>
-            <button class="read-more" @click="afficheDescription">Read more</button>
 
             <!-- Affichage du bouton pour voir plus -->
             <button class="read-more" @click="afficheDescription">Read more</button>
@@ -209,6 +209,7 @@ export default {
         </div>
       </div>
     </div>
+  </div>
 
 </template>
 
