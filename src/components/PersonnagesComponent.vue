@@ -17,7 +17,7 @@ export default {
         personnages: [],
         filtreActif: false,
         pageActuelle: 1,
-        itemsParPage: 20,
+        itemsParPage: 32,
         totalItems: 0
       }
     },
@@ -157,7 +157,7 @@ export default {
     </div>
 
     <!-- Pagination -->
-    <nav v-if="filtreActif === false" style="width:90%; overflow-x: scroll;">
+    <nav v-if="filtreActif === false" style="width:98%; overflow-x: scroll;">
       <ul class="pagination">
         <li class="page-item" :class="{ disabled: pageActuelle === 1 }">
           <a class="page-link" href="#" aria-label="Previous" @click.prevent="pageAvant">

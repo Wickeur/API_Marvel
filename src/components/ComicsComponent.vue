@@ -15,12 +15,31 @@ export default {
         comicsFiltre: [],
         filtreActif: false,
         pageActuelle: 1,
-        itemsParPage: 20,
-        totalItems: 0
+        itemsParPage: 32,
+        totalItems: 0,
+        affichageDescription: false,
+        tailleCard: 100
       }
     },
     // Composant créé
     methods:{
+      // Fonction pour limiter la description à 70 caractères
+        restriction(text){
+            if (this.affichageDescription == false) {
+                return text.slice(0, 120) + '...';
+            } else {
+                return text;
+            }
+        },
+        // Fonction pour afficher la description complète
+        afficheDescription() {
+            this.affichageDescription = !this.affichageDescription;
+            if (this.affichageDescription == true) {
+                this.tailleCard = 220;
+            } else {
+                this.tailleCard = 100;
+            }
+        },
       rechercher() {
         // Si la barre de recherche n'est pas vide
         if(this.nomRecherche.length > 0){
@@ -127,7 +146,7 @@ export default {
     <h1><b>Marvel Comics</b></h1>
 
     <!-- Pagination -->
-    <nav v-if="filtreActif === false" style="width:90%; overflow-x: scroll;">
+    <nav v-if="filtreActif === false" style="width:98%; overflow-x: scroll;">
       <ul class="pagination">
         <li class="page-item" :class="{ disabled: pageActuelle === 1 }">
           <a class="page-link" href="#" aria-label="Previous" @click.prevent="pageAvant">
@@ -149,7 +168,7 @@ export default {
    
       <div class="listeComics">
           <div v-for="comics in comicsVisible"> 
-              <div class="card mb-3" style="max-width: 540px; max-height: 280px;">
+              <div class="card mb-3">
                   <div class="row g-0">
                       <div class="col-md-4">
                       <img class="img-fluid rounded-start" :src="comics.thumbnail.path + '.' + comics.thumbnail.extension" alt="image">
@@ -162,8 +181,8 @@ export default {
                             Price : {{ comics.prices[0].price }}
                           </small>
                           <!-- v-html permet d'afficher les ' de l'API -->
-                          <p v-if="comics.description" class="card-text" v-html="comics.description"></p> 
-                          <p v-if="comics.description === ''" class="card-text">There is no description</p>
+                          <p v-if="comics.description" class="card-text" style="overflow: auto;" v-html="comics.description"></p> 
+                          <p v-if="comics.description === ''" >There is no description</p>
                       </div>
                       </div>
                   </div>
@@ -186,6 +205,10 @@ export default {
 </template>
 
 <style>
+  .card{
+    max-width: 540px;
+    height: 300px;
+  }
   .listeComics{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -194,6 +217,10 @@ export default {
   }
   .card-text{
     padding-top: 5px;
-    height: 100px;
+    height: 180px;
+  }
+
+  .card-body{
+    height: 100%;
   }
 </style>
