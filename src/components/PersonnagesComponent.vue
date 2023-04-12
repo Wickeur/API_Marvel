@@ -149,8 +149,8 @@ export default {
 
       <div style="display: flex; flex-direction: row;">
         <input style="flex: 5;" type="text" v-model="nomRecherche" placeholder="ex : Iron Man ...">
-        <button style="flex: 1; background-color: black; margin-left: 0;" @click="rechercher()">
-          <img style="height: 20px;" src="/icons8-loupe-64.png" alt="">
+        <button class="boutonClicable" style="flex: 1; background-color: black; margin-left: 0;" @click="rechercher()">
+          <img class="loupe" src="/icons8-loupe-64.png" alt="">
         </button>
       </div>
       <button v-if="filtreActif === true" @click="annulerRecherche()">Cancel</button>
@@ -199,11 +199,11 @@ export default {
             <p class="card-text" :style="{ height: tailleCard + 'px' }" v-else>{{ restriction(item.description) }}</p>
 
             <!-- Affichage du bouton pour voir plus -->
-            <button class="read-more" @click="afficheDescription">Read more</button>
+            <button class="read-more boutonClicable" @click="afficheDescription">Read more</button>
 
             <!-- Redirection vers info perso -->
             <router-link :to="{ name: 'InfoPersonnage', params: { id: item.id } }">
-              <div>See details</div>
+              <div class="seeDetails boutonClicable">See details</div>
             </router-link>
           </div>
         </div>
@@ -214,6 +214,9 @@ export default {
 </template>
 
 <style>
+  .card:hover {
+    transform: scale(1.05);
+  }
     h1{
     text-align: center;
     padding: 2%;
@@ -231,10 +234,6 @@ export default {
     max-height: 250px;
   }
 
-  h1{
-    text-align: center;
-  }
-
   .card-text{
     height: 100px;
     overflow: hidden;
@@ -244,6 +243,14 @@ export default {
      position: absolute; 
      bottom: 0;
      right: 0;
+     margin: 10px; 
+     width: fit-content;
+    }
+
+    .seeDetails {
+     position: relative; 
+     bottom: 0;
+     left: 0;
      margin: 10px; 
      width: fit-content;
     }

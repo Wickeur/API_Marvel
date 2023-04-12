@@ -195,8 +195,8 @@ export default {
       <h5>Rechercher un comics</h5>
       <div style="display: flex; flex-direction: row;">
         <input style="flex: 5;" type="text" v-model="nomRecherche" placeholder="ex : Avengers ...">
-        <button style="flex: 1; background-color: black; margin-left: 0;" @click="rechercher()">
-          <img style="height: 20px;" src="/icons8-loupe-64.png" alt="">
+        <button class="boutonClicable" style="flex: 1; background-color: black; margin-left: 0;" @click="rechercher()">
+          <img class="loupe" src="/icons8-loupe-64.png" alt="">
         </button>
       </div>
       <button v-if="filtreActif === true" @click="annulerRecherche()">Annuler</button>
