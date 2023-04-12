@@ -146,7 +146,7 @@ export default {
     <h1><b>Marvel Comics</b></h1>
 
     <!-- Pagination -->
-    <nav v-if="filtreActif === false" style="width:98%; overflow-x: scroll;">
+    <nav v-if="filtreActif === false">
       <ul class="pagination">
         <li class="page-item" :class="{ disabled: pageActuelle === 1 }">
           <a class="page-link" href="#" aria-label="Previous" @click.prevent="pageAvant">
