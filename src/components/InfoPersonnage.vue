@@ -53,7 +53,7 @@ export default {
     <h1>{{ perso.name }}</h1>
 
     <div class="imagePerso">
-      <!-- <img :src="perso.thumbnail.path + '.' + perso.thumbnail.extension" alt="image"> -->
+      <img :src="perso.thumbnail.path + '.' + perso.thumbnail.extension" alt="image">
     </div>
   
     <div v-if="perso.description">
@@ -65,23 +65,23 @@ export default {
 
     <div class="comics">
       <h2>Appearance in the comics</h2>
-      <!-- <p>Nombre de comics : {{ perso.comics.available }}</p>
+      <p>Nombre de comics : {{ perso.comics.available }}</p>
       <ul>
         <li v-for="comic in perso.comics.items" :key="comic.name">
           {{ comic.name }}
         </li>
-      </ul> -->
-      <!-- <a :href="comic.resourceURI">Lien ressource</a> -->
+      </ul>
+      <a :href="comic.resourceURI">Lien ressource</a>
     </div>
 
     <div class="series">
       <h2>Apparition dans les séries</h2>
-      <!-- <p>Nombre de séries : {{ perso.series.available }}</p>
+      <p>Nombre de séries : {{ perso.series.available }}</p>
       <ul>
         <li v-for="serie in perso.series.items" :key="serie.name">
           {{ serie.name }}
         </li>
-      </ul> -->
+      </ul>
     </div>
   </div>
 </div>

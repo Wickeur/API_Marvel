@@ -193,7 +193,7 @@ export default {
             <h5 class="card-title">{{ item.name }}</h5>
 
             <!-- Si la description est vide -->
-            <p class="card-text" v-if="item.description === ''">There is no description</p>
+            <p class="card-text" style="height: 100px;" v-if="item.description === ''">There is no description</p>
 
             <!-- Si la description n'est pas vide  -->
             <p class="card-text" :style="{ height: tailleCard + 'px' }" v-else>{{ restriction(item.description) }}</p>
