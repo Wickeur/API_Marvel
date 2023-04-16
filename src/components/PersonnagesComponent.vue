@@ -249,8 +249,8 @@ export default {
 
     .seeDetails {
      position: relative; 
-     bottom: -5px;
-     left: 0;
+     bottom: -10px;
+     left: -10px;
      margin: 10px; 
      width: fit-content;
     }

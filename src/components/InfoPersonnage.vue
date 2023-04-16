@@ -75,7 +75,7 @@ export default {
     </div>
 
     <div class="series">
-      <h2>Apparition dans les séries</h2>
+      <h2>Appearance in the series</h2>
       <!-- <p>Nombre de séries : {{ perso.series.available }}</p>
       <ul>
         <li v-for="serie in perso.series.items" :key="serie.name">
