@@ -2,8 +2,9 @@
 import axios from 'axios';
 import md5 from 'md5';
 
-  // Ma clé public : bb4b312175d34c383916b21d0cd61b2f
-  // Ma clé privée : 7add3909894cb9c00d59137600b6bb8001617be2
+// Ma clé public : bb4b312175d34c383916b21d0cd61b2f
+// Ma clé privée : 7add3909894cb9c00d59137600b6bb8001617be2
+
 const timestamp = Date.now();
 
 export default {

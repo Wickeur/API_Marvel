@@ -2,9 +2,10 @@
 import axios from 'axios';
 import md5 from 'md5';
 
-  // Ma clé public : bb4b312175d34c383916b21d0cd61b2f
-  // Ma clé privée : 7add3909894cb9c00d59137600b6bb8001617be2
-const timestamp = Date.now();
+// Ma clé public : bb4b312175d34c383916b21d0cd61b2f
+// Ma clé privée : 7add3909894cb9c00d59137600b6bb8001617be2
+
+const timestamp = Date.now(); // Timestamp
 
 export default {
   name: 'PersonnagesComponent',
@@ -41,6 +42,7 @@ export default {
         },
         // Fonction pour rechercher un personnage
         rechercher() {
+          // Si la barre de recherche n'est pas vide
           if(this.nomRecherche.length > 0){
             this.filtreActif = true;
             // Requête pour récupérer les personnages
@@ -217,10 +219,12 @@ export default {
   .card:hover {
     transform: scale(1.05);
   }
-    h1{
+
+  h1{
     text-align: center;
     padding: 2%;
   }
+
   .lesPersonnages{
     display: flex;
     flex-wrap: wrap;
@@ -240,19 +244,19 @@ export default {
   }
 
   .read-more {
-     position: absolute; 
-     bottom: 0;
-     right: 0;
-     margin: 10px; 
-     width: fit-content;
-    }
+    position: absolute; 
+    bottom: 0;
+    right: 0;
+    margin: 10px; 
+    width: fit-content;
+  }
 
-    .seeDetails {
-     position: relative; 
-     bottom: -10px;
-     left: -10px;
-     margin: 10px; 
-     width: fit-content;
-    }
+  .seeDetails {
+    position: relative; 
+    bottom: -10px;
+    left: -10px;
+    margin: 10px; 
+    width: fit-content;
+  }
 
 </style>

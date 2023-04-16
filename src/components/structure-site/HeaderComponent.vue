@@ -5,6 +5,7 @@ export default {
 </script>
 
 <template>
+  <!-- Barre de navigation  -->
   <div class="navigation">
     <img style="height: 50px;" src="/Marvel_logo.jpg" alt="logo">
     <ul>

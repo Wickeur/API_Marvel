@@ -18,10 +18,10 @@ export default {
   },
   methods: {
     detailPersonnage() {
-      const publicKey = 'bb4b312175d34c383916b21d0cd61b2f';
-      const privateKey = '7add3909894cb9c00d59137600b6bb8001617be2';
-      const timestamp = Date.now();
-      const hash = md5(timestamp + privateKey + publicKey);
+      const publicKey = 'bb4b312175d34c383916b21d0cd61b2f'; // Ma clé public
+      const privateKey = '7add3909894cb9c00d59137600b6bb8001617be2'; // Ma clé privée
+      const timestamp = Date.now(); // Timestamp 
+      const hash = md5(timestamp + privateKey + publicKey); // Hash
         console.log(this.$route.params);
       axios
         .get('https://gateway.marvel.com:443/v1/public/characters/'+this.$route.params.id, {
@@ -53,7 +53,7 @@ export default {
     <h1>{{ perso.name }}</h1>
 
     <div class="imagePerso">
-      <!-- <img :src="perso.thumbnail.path + '.' + perso.thumbnail.extension" alt="image"> -->
+      <!-- <img :src="perso.thumbnail.path + '.' + perso.thumbnail.extension" alt="image">  -->
     </div>
   
     <div v-if="perso.description">

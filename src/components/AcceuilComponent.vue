@@ -5,7 +5,7 @@
   </script>
 
 <template>
-  
+    <!-- Image de fond -->
     <img class="imagefond" src="/marvel_fondRouge.png" alt="fond">
 
 </template>
