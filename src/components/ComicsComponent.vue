@@ -168,7 +168,7 @@ export default {
    
       <div class="listeComics">
           <div v-for="comics in comicsVisible"> 
-              <div class="card mb-3" style="max-width: 540px; max-height: 280px;">
+              <div class="card mb-3" style="max-width: 540px; max-height: 310px;">
                   <div class="row g-0">
                       <div class="col-md-4" >
                       <img class="img-fluid rounded-start" :src="comics.thumbnail.path + '.' + comics.thumbnail.extension" alt="image">
@@ -210,6 +210,7 @@ export default {
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 20px;
     padding-top: 10px;
+    justify-content: center;
   }
   .card-text{
     padding-top: 5px;

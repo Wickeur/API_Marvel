@@ -145,7 +145,7 @@ export default {
 
     <!-- Barre de recherche -->
     <div class="barreRecherche">
-      <h5>Find your character</h5>
+      <h5 style="justify-content: center;">Find your character</h5>
 
       <div style="display: flex; flex-direction: row;">
         <input style="flex: 5;" type="text" v-model="nomRecherche" placeholder="ex : Iron Man ...">
@@ -157,7 +157,7 @@ export default {
     </div>
 
     <!-- Pagination -->
-    <nav v-if="filtreActif === false" style="width: 98%">
+    <nav v-if="filtreActif === false" style="width: 98%; justify-content: center;">
       <ul class="pagination">
         <li class="page-item" :class="{ disabled: pageActuelle === 1 }">
           <a class="page-link" href="#" aria-label="Previous" @click.prevent="pageAvant">
@@ -222,11 +222,11 @@ export default {
     padding: 2%;
   }
   .lesPersonnages{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 20px;
-    padding: 40px 0 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
+
   .name{
     font-weight: bold;
   }
@@ -249,7 +249,7 @@ export default {
 
     .seeDetails {
      position: relative; 
-     bottom: 0;
+     bottom: -5px;
      left: 0;
      margin: 10px; 
      width: fit-content;

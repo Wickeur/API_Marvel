@@ -32,6 +32,7 @@ export default {
         background-color: black; 
         color: #fff; 
         padding: 20px;
+        z-index: 1000; /* définit la navigation comme devant tous les autres éléments */
       }
 
       /* style pour les liens de la navigation */
