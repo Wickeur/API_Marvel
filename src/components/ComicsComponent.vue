@@ -193,14 +193,14 @@ export default {
 
     <!-- Barre de recherche -->
     <div class="barreRecherche">
-      <h5>Rechercher un comics</h5>
+      <h5>Find a comic</h5>
       <div style="display: flex; flex-direction: row;">
         <input style="flex: 5;" type="text" v-model="nomRecherche" placeholder="ex : Avengers ...">
         <button class="boutonClicable" style="flex: 1; background-color: black; margin-left: 0;" @click="rechercher()">
           <img class="loupe" src="/icons8-loupe-64.png" alt="">
         </button>
       </div>
-      <button v-if="filtreActif === true" @click="annulerRecherche()">Annuler</button>
+      <button v-if="filtreActif === true" @click="annulerRecherche()">Cancel</button>
     </div>
   </div>
 </template>
